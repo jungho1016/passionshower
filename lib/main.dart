@@ -4,10 +4,19 @@ import 'package:passionshower/presentation/main/main_view_model.dart';
 import 'package:passionshower/presentation/myhome/myhome_screen.dart';
 import 'package:provider/provider.dart';
 
+import 'presentation/like/like_view_model.dart';
+
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => MainScreenViewModel(QuotesRepositoryImpl()),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<MainScreenViewModel>(
+          create: (context) => MainScreenViewModel(QuotesRepositoryImpl()),
+        ),
+        ChangeNotifierProvider<LikeScreenViewModel>(
+          create: (context) => LikeScreenViewModel(),
+        ),
+      ],
       child: const MyApp(),
     ),
   );

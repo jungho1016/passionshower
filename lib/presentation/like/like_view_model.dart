@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:passionshower/domain/model/quotes/quotes.dart';
 
-class LikedQuotesViewModel extends ChangeNotifier {
+class LikeScreenViewModel extends ChangeNotifier {
   List<Quotes> likedQuotes = [];
 
-  void addLikedQuote(Quotes quote) {
+  void likeQuote(Quotes quote) {
     likedQuotes.add(quote);
     notifyListeners();
   }
 
-  void removeLikedQuote(Quotes quote) {
+  void unlikeQuote(Quotes quote) {
     likedQuotes.remove(quote);
     notifyListeners();
+  }
+
+  bool isQuoteLiked(Quotes quote) {
+    return likedQuotes.contains(quote);
   }
 }
