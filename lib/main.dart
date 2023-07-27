@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:passionshower/data/repository/quotes_repository_impl.dart';
 import 'package:passionshower/presentation/main/main_view_model.dart';
+import 'package:passionshower/presentation/myhome/myhome_screen.dart';
 import 'package:provider/provider.dart';
-
-import 'presentation/main/main_screen.dart';
 
 void main() {
   runApp(
@@ -23,7 +22,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(),
-      home: MainScreen(),
+      home: const MyHomeScreen(),
     );
   }
 }
