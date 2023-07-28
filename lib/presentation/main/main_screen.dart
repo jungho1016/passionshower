@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:passionshower/presentation/like/like_view_model.dart';
 import 'package:passionshower/presentation/main/main_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -9,12 +8,9 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  bool _isLiked = false; // Track whether the quote is liked or not
-
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<MainScreenViewModel>();
-    final likeViewModel = context.watch<LikeScreenViewModel>();
 
     return Scaffold(
       body: PageView.builder(
@@ -23,15 +19,7 @@ class _MainScreenState extends State<MainScreen> {
           final quote = viewModel.quotes[index];
           return InkWell(
             onTap: () {
-              setState(() {
-                _isLiked = !_isLiked; // Toggle the like status on each tap
-              });
-
-              if (_isLiked) {
-                likeViewModel.likeQuote(quote); // Like the quote
-              } else {
-                likeViewModel.unlikeQuote(quote); // Unlike the quote
-              }
+              viewModel.onTapFavorite(quote); // Like the quote
             },
             child: Stack(
               children: [
@@ -73,7 +61,7 @@ class _MainScreenState extends State<MainScreen> {
                   bottom: 16,
                   right: 16,
                   child: Icon(
-                    _isLiked ? Icons.star : Icons.star_border,
+                    viewModel.likedQuotes.contains(quote) ? Icons.star : Icons.star_border,
                     color: Colors.yellow,
                     size: 32,
                   ),
