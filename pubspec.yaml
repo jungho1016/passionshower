@@ -44,6 +44,7 @@ dependencies:
   lottie: ^2.4.0
   intl: ^0.18.1
   shared_preferences: ^2.2.0
+  awesome_notifications: ^0.6.19
 
 dev_dependencies:
   flutter_test:
