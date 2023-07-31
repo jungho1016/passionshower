@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:passionshower/presentation/alarm/alarm_view_model.dart';
 
 class AlarmScreen extends StatelessWidget {
-  const AlarmScreen({Key? key}) : super(key: key);
+  AlarmScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: Text(
-          'Alarms will be displayed here',
-          style: TextStyle(fontSize: 20),
+        child: ElevatedButton(
+          onPressed: () async {
+            await createPlantFoodNotification();
+          },
+          child: const Text('알람'),
         ),
       ),
     );
