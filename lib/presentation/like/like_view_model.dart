@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:passionshower/data/data_source/like_data_source.dart';
 import 'package:passionshower/domain/model/quotes/quotes.dart';
+import 'package:passionshower/domain/repository/like_repositoy.dart';
 
 class LikeScreenViewModel extends ChangeNotifier {
-  final LikeDataSource _likeDataSource;
+  final LikeRepository _repository;
 
-  LikeScreenViewModel(this._likeDataSource);
+  LikeScreenViewModel(this._repository);
 
-  List<Quotes> get likedQuotes =>
-      List.unmodifiable(_likeDataSource.likedQuotes);
+  List<Quotes> get likedQuotes => List.unmodifiable(_repository.likedQuotes);
 
   void unlikeQuote(Quotes quote) {
-    _likeDataSource.likedQuotes.remove(quote);
-    _likeDataSource.likeSave();
+    _repository.likedQuotes.remove(quote);
+    _repository.likeSave();
     notifyListeners();
   }
 }

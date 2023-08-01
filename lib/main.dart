@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:passionshower/data/data_source/like_data_source.dart';
+import 'package:passionshower/data/repository/like_repository_impl.dart';
 import 'package:passionshower/data/repository/quotes_repository_impl.dart';
 import 'package:passionshower/domain/use_case/get_random_quote_use_case.dart';
 import 'package:passionshower/presentation/main/main_view_model.dart';
@@ -10,18 +11,18 @@ import 'package:provider/provider.dart';
 import 'presentation/like/like_view_model.dart';
 
 void main() {
-  final likeDataSource = LikeDataSource();
+  final likeRepositoryimple = LikeRepositoryimple();
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider<MainScreenViewModel>(
           create: (context) => MainScreenViewModel(
-            likeDataSource,
             GetRandomQuoteUseCase(QuotesRepositoryImpl()),
+            likeRepositoryimple,
           ),
         ),
         ChangeNotifierProvider<LikeScreenViewModel>(
-          create: (context) => LikeScreenViewModel(likeDataSource),
+          create: (context) => LikeScreenViewModel(likeRepositoryimple),
         ),
         // ChangeNotifierProvider<Alarm2ViewModel>(
         //   create: (context) => Alarm2ViewModel(),

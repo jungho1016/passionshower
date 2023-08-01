@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:passionshower/data/data_source/like_data_source.dart';
 import 'package:passionshower/domain/model/quotes/quotes.dart';
+import 'package:passionshower/domain/repository/like_repositoy.dart';
 import 'package:passionshower/domain/use_case/get_random_quote_use_case.dart';
 
 class MainScreenViewModel extends ChangeNotifier {
   final GetRandomQuoteUseCase _getRandomQuoteUseCase;
-  final LikeDataSource _likeDataSource;
+  final LikeRepository _repository;
 
   List<Quotes> _quotes = [];
   List<Quotes> _likedQuotes = [];
 
-  MainScreenViewModel(this._likeDataSource, this._getRandomQuoteUseCase) {
+  MainScreenViewModel(this._getRandomQuoteUseCase, this._repository) {
     fetch();
     loadLikedQuotes();
   }
@@ -28,19 +28,19 @@ class MainScreenViewModel extends ChangeNotifier {
 
   Future<void> loadLikedQuotes() async {
     // Load liked quotes from LikeDataSource
-    await _likeDataSource.likeLoad();
-    _likedQuotes = _likeDataSource.likedQuotes;
+    await _repository.likeLoad();
+    _likedQuotes = _repository.likedQuotes;
     notifyListeners();
   }
 
   void onTapFavorite(Quotes quote) {
     if (_likedQuotes.contains(quote)) {
-      _likeDataSource.unlikeQuote(quote);
+      _repository.unlikeQuote(quote);
     } else {
-      _likeDataSource.likeQuote(quote);
+      _repository.likeQuote(quote);
     }
     // Save the liked quotes to Shared Preferences
-    _likeDataSource.likeSave();
+    _repository.likeSave();
     loadLikedQuotes(); // Refresh liked quotes list
   }
 }
