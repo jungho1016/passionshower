@@ -15,7 +15,8 @@ class MainScreenViewModel extends ChangeNotifier {
 
   List<Quotes> get quotes => _quotes;
 
-  List<Quotes> get likedQuotes => List.unmodifiable(_likeDataSource.likedQuotes);
+  List<Quotes> get likedQuotes =>
+      List.unmodifiable(_likeDataSource.likedQuotes);
 
   Future<void> fetch() async {
     // Fetch quotes data from the repository
@@ -32,5 +33,4 @@ class MainScreenViewModel extends ChangeNotifier {
     }
     notifyListeners();
   }
-
 }

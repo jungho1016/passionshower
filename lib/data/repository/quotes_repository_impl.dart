@@ -8,7 +8,7 @@ class QuotesRepositoryImpl implements QuotesRepository {
   @override
   Future<List<Quotes>> fetch() async {
     try {
-      String jsonString = await rootBundle.loadString('assets/quotes.json');
+      String jsonString = await rootBundle.loadString('assets/quotes1.json');
       Map<String, dynamic> jsonData = json.decode(jsonString);
       List<dynamic> jsonResult = jsonData['DATA'];
       return jsonResult.map((e) => Quotes.fromJson(e)).toList();

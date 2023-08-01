@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:passionshower/data/data_source/like_data_source.dart';
 import 'package:passionshower/data/repository/quotes_repository_impl.dart';
+import 'package:passionshower/presentation/alarm/alarm_view_model.dart';
 import 'package:passionshower/presentation/main/main_view_model.dart';
 import 'package:passionshower/presentation/myhome/myhome_screen.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
@@ -20,6 +21,9 @@ void main() {
         ChangeNotifierProvider<LikeScreenViewModel>(
           create: (context) => LikeScreenViewModel(likeDataSource),
         ),
+        // ChangeNotifierProvider<Alarm2ViewModel>(
+        //   create: (context) => Alarm2ViewModel(),
+        // ),
       ],
       child: const MyApp(),
     ),
@@ -27,77 +31,43 @@ void main() {
 
   AwesomeNotifications().initialize(
       // set the icon to null if you want to use the default app icon
-      // 'resource://drawable/res_notification_app_icon',
+      'resource://drawable/res_image',
       // 'asset://assets/ic_launcher-playstore.png',
-      null,
       [
         NotificationChannel(
             channelGroupKey: 'basic_channel_group',
             channelKey: 'basic_channel',
             channelName: 'Basic notifications',
-            channelDescription: 'Notification channel for basic tests',
-            defaultColor: const Color(0xFF9D50DD),
+            channelDescription: 'Notification channel for basic',
+            defaultColor: Colors.redAccent,
             importance: NotificationImportance.High,
-            ledColor: Colors.white),
+            channelShowBadge: true,
+            soundSource: null,
+            playSound: null,
+            ledColor: Colors.red),
+        NotificationChannel(
+            channelGroupKey: 'schedule_channel_group',
+            channelKey: 'schedule_channel',
+            channelName: 'Schedule notifications',
+            channelDescription: 'Notification channel for schedule',
+            defaultColor: Colors.indigo,
+            importance: NotificationImportance.High,
+            channelShowBadge: true,
+            soundSource: null,
+            playSound: null,
+            ledColor: Colors.red),
       ],
       // Channel groups are only visual and are not required
-      channelGroups: [
-        NotificationChannelGroup(
-            channelGroupkey: 'basic_channel_group',
-            channelGroupName: 'Basic group')
-      ],
+      // channelGroups: [
+      //   NotificationChannelGroup(
+      //       channelGroupkey: 'basic_channel_group',
+      //       channelGroupName: 'Basic group')
+      // ],
       debug: true);
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({Key? key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-    super.initState();
-    AwesomeNotifications().isNotificationAllowed().then(
-      (isAllowed) {
-        if (!isAllowed) {
-          showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              title: const Text('Allow Notifications'),
-              content: const Text('Our app would like to send you notifications'),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text(
-                    ' Allow',
-                    style: TextStyle(color: Colors.grey, fontSize: 18),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () => AwesomeNotifications()
-                      .requestPermissionToSendNotifications()
-                      .then((_) => Navigator.pop(context)),
-                  child: const Text(
-                    'Allow',
-                    style: TextStyle(
-                      color: Colors.teal,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          );
-        }
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {

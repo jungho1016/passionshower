@@ -11,6 +11,7 @@ class Quotes with _$Quotes {
     required String author,
     required String job,
     required String message,
+    required num id,
   }) = _Quotes;
 
   factory Quotes.fromJson(Map<String, Object?> json) => _$QuotesFromJson(json);

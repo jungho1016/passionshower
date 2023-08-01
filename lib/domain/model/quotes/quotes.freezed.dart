@@ -23,6 +23,7 @@ mixin _$Quotes {
   String get author => throw _privateConstructorUsedError;
   String get job => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
+  num get id => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +35,7 @@ abstract class $QuotesCopyWith<$Res> {
   factory $QuotesCopyWith(Quotes value, $Res Function(Quotes) then) =
       _$QuotesCopyWithImpl<$Res, Quotes>;
   @useResult
-  $Res call({String author, String job, String message});
+  $Res call({String author, String job, String message, num id});
 }
 
 /// @nodoc
@@ -53,6 +54,7 @@ class _$QuotesCopyWithImpl<$Res, $Val extends Quotes>
     Object? author = null,
     Object? job = null,
     Object? message = null,
+    Object? id = null,
   }) {
     return _then(_value.copyWith(
       author: null == author
@@ -67,6 +69,10 @@ class _$QuotesCopyWithImpl<$Res, $Val extends Quotes>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as num,
     ) as $Val);
   }
 }
@@ -77,7 +83,7 @@ abstract class _$$_QuotesCopyWith<$Res> implements $QuotesCopyWith<$Res> {
       __$$_QuotesCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String author, String job, String message});
+  $Res call({String author, String job, String message, num id});
 }
 
 /// @nodoc
@@ -93,6 +99,7 @@ class __$$_QuotesCopyWithImpl<$Res>
     Object? author = null,
     Object? job = null,
     Object? message = null,
+    Object? id = null,
   }) {
     return _then(_$_Quotes(
       author: null == author
@@ -107,6 +114,10 @@ class __$$_QuotesCopyWithImpl<$Res>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as num,
     ));
   }
 }
@@ -115,7 +126,10 @@ class __$$_QuotesCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Quotes with DiagnosticableTreeMixin implements _Quotes {
   const _$_Quotes(
-      {required this.author, required this.job, required this.message});
+      {required this.author,
+      required this.job,
+      required this.message,
+      required this.id});
 
   factory _$_Quotes.fromJson(Map<String, dynamic> json) =>
       _$$_QuotesFromJson(json);
@@ -126,10 +140,12 @@ class _$_Quotes with DiagnosticableTreeMixin implements _Quotes {
   final String job;
   @override
   final String message;
+  @override
+  final num id;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Quotes(author: $author, job: $job, message: $message)';
+    return 'Quotes(author: $author, job: $job, message: $message, id: $id)';
   }
 
   @override
@@ -139,7 +155,8 @@ class _$_Quotes with DiagnosticableTreeMixin implements _Quotes {
       ..add(DiagnosticsProperty('type', 'Quotes'))
       ..add(DiagnosticsProperty('author', author))
       ..add(DiagnosticsProperty('job', job))
-      ..add(DiagnosticsProperty('message', message));
+      ..add(DiagnosticsProperty('message', message))
+      ..add(DiagnosticsProperty('id', id));
   }
 
   @override
@@ -149,12 +166,13 @@ class _$_Quotes with DiagnosticableTreeMixin implements _Quotes {
             other is _$_Quotes &&
             (identical(other.author, author) || other.author == author) &&
             (identical(other.job, job) || other.job == job) &&
-            (identical(other.message, message) || other.message == message));
+            (identical(other.message, message) || other.message == message) &&
+            (identical(other.id, id) || other.id == id));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, author, job, message);
+  int get hashCode => Object.hash(runtimeType, author, job, message, id);
 
   @JsonKey(ignore: true)
   @override
@@ -174,7 +192,8 @@ abstract class _Quotes implements Quotes {
   const factory _Quotes(
       {required final String author,
       required final String job,
-      required final String message}) = _$_Quotes;
+      required final String message,
+      required final num id}) = _$_Quotes;
 
   factory _Quotes.fromJson(Map<String, dynamic> json) = _$_Quotes.fromJson;
 
@@ -184,6 +203,8 @@ abstract class _Quotes implements Quotes {
   String get job;
   @override
   String get message;
+  @override
+  num get id;
   @override
   @JsonKey(ignore: true)
   _$$_QuotesCopyWith<_$_Quotes> get copyWith =>

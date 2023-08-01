@@ -1,15 +1,20 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:flutter/material.dart';
+import 'package:day_night_time_picker/day_night_time_picker.dart';
 
-Future<void> createPlantFoodNotification() async {
-  await AwesomeNotifications().createNotification(
-    content: NotificationContent(
-      id: 5,
-      channelKey: 'basic_channel',
-      title:
-          '${Emojis.money_money_bag + Emojis.plant_cactus} Buy Plant Food!!!',
-      body: 'Florist at 123 Main St. has 2 in stock.',
-      bigPicture: 'asset://assets/notification_map.png',
-      notificationLayout: NotificationLayout.BigPicture,
-    ),
-  );
+class Alarm2ViewModel extends ChangeNotifier {
+  Time _time = Time(hour: 11, minute: 30, second: 20);
+  bool _iosStyle = true;
+
+  Time get selectedTime => _time;
+  bool get isIosStyle => _iosStyle;
+
+  void onTimeChanged(Time newTime) {
+    _time = newTime;
+    notifyListeners();
+  }
+
+  void toggleIosStyle(bool newValue) {
+    _iosStyle = newValue;
+    notifyListeners();
+  }
 }

@@ -1,4 +1,6 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:passionshower/presentation/alarm/alarm2_screen.dart';
 import 'package:passionshower/presentation/alarm/alarm_screen.dart';
 import 'package:passionshower/presentation/like/like_screen.dart';
 import 'package:passionshower/presentation/main/main_screen.dart';
@@ -15,8 +17,58 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
   final List<Widget> _children = [
     MainScreen(),
     const LikeScreen(),
-    AlarmScreen()
+    AlarmScreen(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    AwesomeNotifications().isNotificationAllowed().then(
+      (isAllowed) {
+        if (!isAllowed) {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('알람 권한'),
+              content: const Text('열정 샤워 앱에서 알람 권한을 요청'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    '거절',
+                    style: TextStyle(color: Colors.red, fontSize: 18),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () => AwesomeNotifications()
+                      .requestPermissionToSendNotifications()
+                      .then((_) => Navigator.pop(context)),
+                  child: const Text(
+                    '허락',
+                    style: TextStyle(
+                      color: Colors.indigo,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+      },
+    );
+
+    AwesomeNotifications().createdStream.listen((notification) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text(
+          '알람이 생성되었습니다.',
+        ),
+      ));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +85,6 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black,
         onTap: (index) {
-          // Handle bottom navigation item taps here
           setState(() {
             _currentIndex = index;
           });
@@ -57,5 +108,12 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
         unselectedItemColor: Colors.grey,
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    // Dispose the listeners to prevent memory leaks
+    AwesomeNotifications().createdSink.close();
+    super.dispose();
   }
 }
