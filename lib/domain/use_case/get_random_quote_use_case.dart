@@ -3,25 +3,30 @@ import 'package:passionshower/domain/repository/quotes_repositoy.dart';
 
 class GetRandomQuoteUseCase {
   final QuotesRepository _repository;
-  List<Quotes> _usedQuotes = [];
+  final List<Quotes> _usedQuotes = [];
 
   GetRandomQuoteUseCase(this._repository);
 
-  Future<Quotes> getRandomQuoteUseCase() async {
+  Future<List<Quotes>> excute() async {
     final List<Quotes> quotes = await _repository.fetch();
     quotes.shuffle();
 
+    List<Quotes> unusedQuotes = [];
     for (final quote in quotes) {
       if (!_usedQuotes.contains(quote)) {
-        _usedQuotes.add(quote);
-        return quote;
+        unusedQuotes.add(quote);
       }
     }
 
-    // 모든 명언을 사용한 경우, _usedQuotes 리스트를 초기화합니다.
-    _usedQuotes.clear();
+    if (unusedQuotes.isEmpty) {
+      // All quotes have been used, so clear the used quotes list.
+      _usedQuotes.clear();
 
-    // 새로운 명언 리스트로 다시 시도합니다.
-    return getRandomQuoteUseCase();
+      // Try again with a new list of quotes.
+      return excute();
+    }
+
+    _usedQuotes.addAll(unusedQuotes);
+    return unusedQuotes;
   }
 }

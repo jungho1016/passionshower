@@ -20,4 +20,4 @@ class QuotesRepositoryImpl implements QuotesRepository {
   }
 }
 
-void main() {}
+

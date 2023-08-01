@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:passionshower/data/data_source/like_data_source.dart';
 import 'package:passionshower/data/repository/quotes_repository_impl.dart';
-import 'package:passionshower/presentation/alarm/alarm_view_model.dart';
+import 'package:passionshower/domain/use_case/get_random_quote_use_case.dart';
 import 'package:passionshower/presentation/main/main_view_model.dart';
 import 'package:passionshower/presentation/myhome/myhome_screen.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
@@ -15,8 +15,10 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider<MainScreenViewModel>(
-          create: (context) =>
-              MainScreenViewModel(QuotesRepositoryImpl(), likeDataSource),
+          create: (context) => MainScreenViewModel(
+            likeDataSource,
+            GetRandomQuoteUseCase(QuotesRepositoryImpl()),
+          ),
         ),
         ChangeNotifierProvider<LikeScreenViewModel>(
           create: (context) => LikeScreenViewModel(likeDataSource),

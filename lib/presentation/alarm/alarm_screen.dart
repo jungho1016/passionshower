@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:passionshower/core/notifications.dart';
 import 'package:passionshower/core/utility.dart';
-import 'package:passionshower/presentation/alarm/alarm_view_model.dart';
 
 class AlarmScreen extends StatelessWidget {
   AlarmScreen({Key? key}) : super(key: key);
