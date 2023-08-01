@@ -7,11 +7,12 @@ class LikeScreenViewModel extends ChangeNotifier {
 
   LikeScreenViewModel(this._likeDataSource);
 
-  List<Quotes> get likedQuotes => List.unmodifiable(_likeDataSource.likedQuotes);
+  List<Quotes> get likedQuotes =>
+      List.unmodifiable(_likeDataSource.likedQuotes);
 
   void unlikeQuote(Quotes quote) {
     _likeDataSource.likedQuotes.remove(quote);
+    _likeDataSource.likeSave();
     notifyListeners();
   }
-
 }
