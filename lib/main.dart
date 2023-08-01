@@ -49,16 +49,13 @@ void main() {
             playSound: null,
             ledColor: Colors.red),
         NotificationChannel(
-            channelGroupKey: 'schedule_channel_group',
-            channelKey: 'schedule_channel',
-            channelName: 'Schedule notifications',
-            channelDescription: 'Notification channel for schedule',
-            defaultColor: Colors.indigo,
-            importance: NotificationImportance.High,
-            channelShowBadge: true,
-            soundSource: null,
-            playSound: null,
-            ledColor: Colors.red),
+          channelKey: 'scheduled_channel',
+          channelName: 'Scheduled Notifications',
+          defaultColor: Colors.teal,
+          locked: true,
+          importance: NotificationImportance.High,
+          channelDescription: '',
+        )
       ],
       // Channel groups are only visual and are not required
       // channelGroups: [
