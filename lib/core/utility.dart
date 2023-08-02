@@ -18,13 +18,13 @@ Future<NotificationWeekAndTime?> pickSchedule(
   BuildContext context,
 ) async {
   List<String> weekdays = [
-    'Mon',
-    'Tue',
-    'Wed',
-    'Thu',
-    'Fri',
-    'Sat',
-    'Sun',
+    '월',
+    '화',
+    '수',
+    '목',
+    '금',
+    '토',
+    '일',
   ];
   TimeOfDay? timeOfDay;
   DateTime now = DateTime.now();
@@ -36,7 +36,7 @@ Future<NotificationWeekAndTime?> pickSchedule(
         return AlertDialog(
           content: Wrap(
             alignment: WrapAlignment.center,
-            spacing: 10,
+            spacing: 3,
             children: [
               for (int index = 0; index < weekdays.length; index++)
                 ElevatedButton(

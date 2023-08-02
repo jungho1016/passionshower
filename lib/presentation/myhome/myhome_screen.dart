@@ -70,6 +70,12 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
   }
 
   @override
+  void dispose() {
+    AwesomeNotifications().createdSink.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -107,12 +113,5 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
         unselectedItemColor: Colors.grey,
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    // Dispose the listeners to prevent memory leaks
-    AwesomeNotifications().createdSink.close();
-    super.dispose();
   }
 }
