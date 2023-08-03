@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:passionshower/presentation/main/main_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -34,9 +35,11 @@ class _MainScreenState extends State<MainScreen> {
                         const SizedBox(height: 8),
                         Text(
                           quote.message,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24,
+                          style: GoogleFonts.nanumPenScript(
+                            textStyle: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 36,
+                            ),
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -61,7 +64,9 @@ class _MainScreenState extends State<MainScreen> {
                   bottom: 16,
                   right: 16,
                   child: Icon(
-                    viewModel.likedQuotes.contains(quote) ? Icons.star : Icons.star_border,
+                    viewModel.likedQuotes.contains(quote)
+                        ? Icons.star
+                        : Icons.star_border,
                     color: Colors.yellow,
                     size: 32,
                   ),

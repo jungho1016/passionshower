@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:passionshower/presentation/like/like_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -45,22 +46,25 @@ class _LikeScreenState extends State<LikeScreen> {
             child: ListTile(
               title: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   Text(
                     quote.message,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
+                    style: GoogleFonts.nanumPenScript(
+                      textStyle: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24,
+                      ),
                     ),
-                  ),
+                  )
                 ],
               ),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 4),
                   Text(
                     quote.author,
                     style: const TextStyle(fontSize: 14, color: Colors.black87),

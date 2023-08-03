@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:passionshower/data/data_source/alarm_data_source.dart';
 import 'package:passionshower/data/data_source/like_data_source.dart';
+import 'package:passionshower/data/repository/alarm_repository_impl.dart';
 import 'package:passionshower/data/repository/like_repository_impl.dart';
 import 'package:passionshower/data/repository/quotes_repository_impl.dart';
 import 'package:passionshower/domain/use_case/get_random_quote_use_case.dart';
+import 'package:passionshower/presentation/alarm/alarm_view_model.dart';
 import 'package:passionshower/presentation/main/main_view_model.dart';
 import 'package:passionshower/presentation/myhome/myhome_screen.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
@@ -11,7 +14,7 @@ import 'package:provider/provider.dart';
 import 'presentation/like/like_view_model.dart';
 
 void main() {
-  final likeRepositoryimple = LikeRepositoryimple();
+  final likeRepositoryimple = LikeRepositoryimpl(LikeDataSource());
   runApp(
     MultiProvider(
       providers: [
@@ -24,30 +27,23 @@ void main() {
         ChangeNotifierProvider<LikeScreenViewModel>(
           create: (context) => LikeScreenViewModel(likeRepositoryimple),
         ),
-        // ChangeNotifierProvider<Alarm2ViewModel>(
-        //   create: (context) => Alarm2ViewModel(),
-        // ),
+        ChangeNotifierProvider<AlarmViewModel>(
+          create: (context) => AlarmViewModel(
+            (QuotesRepositoryImpl()),
+            AlarmsRepositoryImpl(AlarmDataSource()),
+          ),
+          // ChangeNotifierProvider<Alarm2ViewModel>(
+          //   create: (context) => Alarm2ViewModel(),
+          // ),
+        )
       ],
       child: const MyApp(),
     ),
   );
 
   AwesomeNotifications().initialize(
-      // set the icon to null if you want to use the default app icon
-      'resource://drawable/res_image',
-      // 'asset://assets/ic_launcher-playstore.png',
+      'resource://drawable/ic_stat_name',
       [
-        NotificationChannel(
-            channelGroupKey: 'basic_channel_group',
-            channelKey: 'basic_channel',
-            channelName: 'Basic notifications',
-            channelDescription: 'Notification channel for basic',
-            defaultColor: Colors.redAccent,
-            importance: NotificationImportance.High,
-            channelShowBadge: true,
-            soundSource: null,
-            playSound: null,
-            ledColor: Colors.red),
         NotificationChannel(
           channelKey: 'scheduled_channel',
           channelName: 'Scheduled Notifications',

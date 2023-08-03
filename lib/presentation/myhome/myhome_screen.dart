@@ -16,7 +16,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
   final List<Widget> _children = [
     MainScreen(),
     const LikeScreen(),
-    AlarmScreen(),
+    const AlarmScreen(),
   ];
 
   @override
@@ -59,20 +59,6 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
         }
       },
     );
-
-    AwesomeNotifications().createdStream.listen((notification) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text(
-          '알람이 생성되었습니다.',
-        ),
-      ));
-    });
-  }
-
-  @override
-  void dispose() {
-    AwesomeNotifications().createdSink.close();
-    super.dispose();
   }
 
   @override
@@ -113,5 +99,11 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
         unselectedItemColor: Colors.grey,
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    AwesomeNotifications().createdSink.close();
+    super.dispose();
   }
 }

@@ -11,7 +11,7 @@ Future<void> createQuotesNotification() async {
       body: '알버트 아인슈타인',
       bigPicture: 'asset://assets/einstein.jpg',
       notificationLayout: NotificationLayout.BigPicture,
-      locked: true,
+      locked: false,
     ),
   );
 }
@@ -40,16 +40,19 @@ Future<void> createQuotesNotification() async {
 // }
 
 Future<void> createQuotesReminderNotification(
-    NotificationWeekAndTime notificationSchedule) async {
+    {required NotificationWeekAndTime notificationSchedule,
+    required String title,
+    required String body,
+    required int id}) async {
   await AwesomeNotifications().createNotification(
     content: NotificationContent(
-      id: createUniqueId(),
-      channelKey: 'scheduled_channel',
-      title: '늙어서 놀기를 멈추는 것이 아니라 노는 것을 멈춰서 늙는것이다.',
-      body: '버나드 쇼 명언 모음',
-      bigPicture: 'asset://assets/thumb6.jpg',
-      notificationLayout: NotificationLayout.BigPicture,
-    ),
+        // id: createUniqueId(),
+        id: id,
+        channelKey: 'scheduled_channel',
+        title: title,
+        body: body,
+        notificationLayout: NotificationLayout.Default,
+        locked: false),
     // actionButtons: [
     //   NotificationActionButton(
     //     key: 'MARK_DONE',
@@ -65,6 +68,7 @@ Future<void> createQuotesReminderNotification(
       repeats: true,
     ),
   );
+  print(id);
 }
 
 Future<void> cancelScheduledNotifications() async {
