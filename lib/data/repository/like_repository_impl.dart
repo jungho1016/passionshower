@@ -1,7 +1,9 @@
+import 'package:injectable/injectable.dart';
 import 'package:passionshower/data/data_source/like_data_source.dart';
 import 'package:passionshower/domain/model/quotes/quotes.dart';
 import 'package:passionshower/domain/repository/like_repositoy.dart';
 
+@Singleton(as: LikeRepository)
 class LikeRepositoryimpl implements LikeRepository {
   final LikeDataSource _likeDataSource;
   @override

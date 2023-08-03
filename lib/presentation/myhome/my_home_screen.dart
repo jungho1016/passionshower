@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:passionshower/presentation/alarm/alarm_screen.dart';
@@ -18,10 +20,12 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
     const LikeScreen(),
     const AlarmScreen(),
   ];
+  StreamSubscription? _streamSubscription;
 
   @override
   void initState() {
     super.initState();
+
     AwesomeNotifications().isNotificationAllowed().then(
       (isAllowed) {
         if (!isAllowed) {
@@ -59,21 +63,43 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
         }
       },
     );
-
-    AwesomeNotifications().actionStream.listen((action) {
-      if (action.buttonKeyPressed == "open") {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const MyHomeScreen()),
-        );
-      }
-    });
   }
 
-  //   } else if (action.buttonKeyPressed == "delete") {
-  //     Navigator.of(context).pop(true);
-  //   }
-  // });
+//     AwesomeNotifications().actionStream.listen((action) {
+//       if (action.buttonKeyPressed == "open") {
+//         Navigator.push(
+//           context,
+//           MaterialPageRoute(builder: (context) => const MyHomeScreen()),
+//         );
+//       }
+//     });
+//   }
+//
+// //
+//   final viewModel = context.read<MyHomeViewModel>();
+//   _streamSubscription = AwesomeNotifications().actionStream.listen((action) {
+//   if (action.buttonKeyPressed == "open") {
+//   Navigator.push(
+//   context,
+//   MaterialPageRoute(builder: (context) => const MyHomeScreen()),
+//   );
+//   }
+//   });
+// }
+
+//   _streamSubscription = viewModel.eventStream.listen((event) {
+//   event.when(
+//   saveNote: () {
+//   Navigator.pop(context, true);
+//   },
+//   showSnackBar: (String message) {
+//   final snackBar = SnackBar(content: Text(message));
+//   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+//   },
+//   );
+//   });
+// });
+// }
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +143,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
 
   @override
   void dispose() {
-    AwesomeNotifications().createdSink.close();
+    _streamSubscription?.cancel();
     super.dispose();
   }
 }

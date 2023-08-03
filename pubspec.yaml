@@ -46,6 +46,9 @@ dependencies:
   awesome_notifications: ^0.6.19
   http: ^1.1.0
   google_fonts: ^5.1.0
+  injectable: ^2.1.2
+  get_it: ^7.6.0
+  injectable_generator: ^2.1.6
 
 
 dev_dependencies:

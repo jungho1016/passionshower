@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'package:injectable/injectable.dart';
 import 'package:passionshower/domain/model/alarms/alarms.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+@singleton
 class AlarmDataSource {
   List<Alarms> _alarms = [];
 

@@ -1,9 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:injectable/injectable.dart';
 import 'package:passionshower/domain/model/quotes/quotes.dart';
 import 'package:passionshower/domain/repository/quotes_repositoy.dart';
 
+@Singleton(as: QuotesRepository)
 class QuotesRepositoryImpl implements QuotesRepository {
   @override
   Future<List<Quotes>> fetch() async {
@@ -19,5 +21,3 @@ class QuotesRepositoryImpl implements QuotesRepository {
     }
   }
 }
-
-

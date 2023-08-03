@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 import 'package:passionshower/domain/model/quotes/quotes.dart';
 import 'package:passionshower/domain/repository/like_repositoy.dart';
 
-class LikeScreenViewModel extends ChangeNotifier {
+@injectable
+class LikeViewModel extends ChangeNotifier {
   final LikeRepository _repository;
 
-  LikeScreenViewModel(this._repository);
+  LikeViewModel(this._repository);
 
   List<Quotes> get likedQuotes => List.unmodifiable(_repository.likedQuotes);
 

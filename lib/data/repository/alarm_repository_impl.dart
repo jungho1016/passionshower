@@ -1,7 +1,9 @@
+import 'package:injectable/injectable.dart';
 import 'package:passionshower/data/data_source/alarm_data_source.dart';
 import 'package:passionshower/domain/model/alarms/alarms.dart';
 import 'package:passionshower/domain/repository/alarm_repository.dart';
 
+@Singleton(as: AlarmsRepository)
 class AlarmsRepositoryImpl implements AlarmsRepository {
   final AlarmDataSource _dataSource;
 

@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:injectable/injectable.dart';
 import 'package:passionshower/domain/model/quotes/quotes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+@singleton
 class LikeDataSource {
   List<Quotes> likedQuotes = [];
 

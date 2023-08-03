@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 import 'package:passionshower/domain/model/quotes/quotes.dart';
 import 'package:passionshower/domain/repository/like_repositoy.dart';
 import 'package:passionshower/domain/use_case/get_random_quote_use_case.dart';
 
-class MainScreenViewModel extends ChangeNotifier {
+@lazySingleton
+class MainViewModel extends ChangeNotifier {
   final GetRandomQuoteUseCase _getRandomQuoteUseCase;
   final LikeRepository _repository;
 
   List<Quotes> _quotes = [];
   List<Quotes> _likedQuotes = [];
 
-  MainScreenViewModel(this._getRandomQuoteUseCase, this._repository) {
+  MainViewModel(this._getRandomQuoteUseCase, this._repository) {
     fetch();
     loadLikedQuotes();
   }

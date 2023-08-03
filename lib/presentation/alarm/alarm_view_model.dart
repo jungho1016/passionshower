@@ -1,5 +1,6 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 import 'package:passionshower/core/notifications.dart';
 import 'package:passionshower/core/utility.dart';
 import 'package:passionshower/domain/model/quotes/quotes.dart';
@@ -7,6 +8,7 @@ import 'package:passionshower/domain/model/alarms/alarms.dart';
 import 'package:passionshower/domain/repository/alarm_repository.dart';
 import 'package:passionshower/domain/repository/quotes_repositoy.dart';
 
+@injectable
 class AlarmViewModel extends ChangeNotifier {
   final QuotesRepository _quotesRepository;
   final AlarmsRepository _alarmsRepository;

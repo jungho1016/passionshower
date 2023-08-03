@@ -1,6 +1,8 @@
+import 'package:injectable/injectable.dart';
 import 'package:passionshower/domain/model/quotes/quotes.dart';
 import 'package:passionshower/domain/repository/quotes_repositoy.dart';
 
+@singleton
 class GetRandomQuoteUseCase {
   final QuotesRepository _repository;
   final List<Quotes> _usedQuotes = [];
