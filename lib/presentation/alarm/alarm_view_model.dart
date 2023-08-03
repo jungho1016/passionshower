@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:passionshower/core/notifications.dart';
@@ -12,7 +11,9 @@ class AlarmViewModel extends ChangeNotifier {
   final QuotesRepository _quotesRepository;
   final AlarmsRepository _alarmsRepository;
 
-  AlarmViewModel(this._quotesRepository, this._alarmsRepository);
+  AlarmViewModel(this._quotesRepository, this._alarmsRepository) {
+    fetch();
+  }
 
   List<Quotes> _quotes = [];
   List<Quotes> get quotes => _quotes;
@@ -22,6 +23,9 @@ class AlarmViewModel extends ChangeNotifier {
   Future<void> fetch() async {
     final quotes = await _quotesRepository.fetch();
     _quotes = quotes;
+
+    await _alarmsRepository.loadAlarms();
+
     notifyListeners();
   }
 
@@ -35,7 +39,7 @@ class AlarmViewModel extends ChangeNotifier {
 
   Future<void> onAddAlarmButtonPressed(BuildContext context, int? id) async {
     int alarmId = createUniqueId();
-    NotificationWeekAndTime? pickedSchedule = await pickSchedule(context, id);
+    Alarms? pickedSchedule = await pickSchedule(context, id);
 
     if (pickedSchedule != null) {
       Quotes? randomQuote = await getRandomQuote();
@@ -46,7 +50,6 @@ class AlarmViewModel extends ChangeNotifier {
         ),
       ));
       if (randomQuote != null) {
-        print('alarmId : $alarmId');
         createQuotesReminderNotification(
           notificationSchedule: pickedSchedule.copyWith(id: alarmId),
           title: randomQuote.message,
@@ -54,19 +57,26 @@ class AlarmViewModel extends ChangeNotifier {
           id: alarmId,
         );
       }
-      _alarmsRepository.alarms
-          .add(pickedSchedule.copyWith(id: alarmId) as Alarms);
-      print('alarmId : $alarmId');
+      _alarmsRepository.alarms.add(pickedSchedule.copyWith(id: alarmId));
+
+      // Save the alarms to the repository
+      await _alarmsRepository.saveAlarms();
+
       notifyListeners();
     }
   }
 
-  void onCancelAlarmButtonPressed() {
+  void onCancelAlarmButtonPressed() async {
     cancelScheduledNotifications();
+    _alarmsRepository.alarms.clear();
+    await _alarmsRepository.saveAlarms();
+    notifyListeners();
   }
 
-  Future<void> cancel(int id) {
-    return AwesomeNotifications().cancel(id);
+  Future<void> deleteAlarm(int alarmId) async {
+    _alarmsRepository.alarms.removeWhere((alarm) => alarm.id == alarmId);
+    await _alarmsRepository.saveAlarms();
+    notifyListeners();
   }
 
   void onToggleAlarmStatus(int index, bool newValue) async {
@@ -81,15 +91,14 @@ class AlarmViewModel extends ChangeNotifier {
       if (newValue) {
         // If the alarm is toggled ON, create a notification
         createQuotesReminderNotification(
-          notificationSchedule: alarms[index] as NotificationWeekAndTime,
-          title: randomQuote?.message ?? 'Your notification title',
-          body: randomQuote?.author ?? 'Your notification body',
-          id: alarms[index].id,
+          notificationSchedule: alarms[index],
+          title: randomQuote?.message ?? '이봐 해보기는 해봤어?',
+          body: randomQuote?.author ?? '정주영',
+          id: alarms[index].id!,
         );
       } else {
         // If the alarm is toggled OFF, cancel the notification
-        int alarmId = alarms[index].id;
-        print('alarmId2 : $alarmId');
+        int alarmId = alarms[index].id!;
         await AwesomeNotifications().cancel(alarmId);
       }
     }

@@ -16,6 +16,7 @@ class _LikeScreenState extends State<LikeScreen> {
     super.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
     final likeViewModel = context.watch<LikeScreenViewModel>();
     final likedQuotes = likeViewModel.likedQuotes;

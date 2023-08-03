@@ -14,7 +14,7 @@ class MyHomeScreen extends StatefulWidget {
 class _MyHomeScreenState extends State<MyHomeScreen> {
   int _currentIndex = 0;
   final List<Widget> _children = [
-    MainScreen(),
+    const MainScreen(),
     const LikeScreen(),
     const AlarmScreen(),
   ];
@@ -59,7 +59,21 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
         }
       },
     );
+
+    AwesomeNotifications().actionStream.listen((action) {
+      if (action.buttonKeyPressed == "open") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const MyHomeScreen()),
+        );
+      }
+    });
   }
+
+  //   } else if (action.buttonKeyPressed == "delete") {
+  //     Navigator.of(context).pop(true);
+  //   }
+  // });
 
   @override
   Widget build(BuildContext context) {

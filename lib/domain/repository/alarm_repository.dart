@@ -5,4 +5,5 @@ abstract class AlarmsRepository {
 
   Future<void> loadAlarms();
   Future<void> saveAlarms();
+  Future<void> deleteAlarm(int alarmId);
 }

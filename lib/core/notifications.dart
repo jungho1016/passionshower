@@ -1,4 +1,5 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:passionshower/domain/model/alarms/alarms.dart';
 
 import 'utility.dart';
 
@@ -40,7 +41,7 @@ Future<void> createQuotesNotification() async {
 // }
 
 Future<void> createQuotesReminderNotification(
-    {required NotificationWeekAndTime notificationSchedule,
+    {required Alarms notificationSchedule,
     required String title,
     required String body,
     required int id}) async {
@@ -53,10 +54,15 @@ Future<void> createQuotesReminderNotification(
         body: body,
         notificationLayout: NotificationLayout.Default,
         locked: false),
-    // actionButtons: [
+    actionButtons: [
+      NotificationActionButton(
+        key: 'open',
+        label: '열기',
+      ),
+    ],
     //   NotificationActionButton(
-    //     key: 'MARK_DONE',
-    //     label: 'Mark Done',
+    //     key: 'delete',
+    //     label: '닫기',
     //   ),
     // ],
     schedule: NotificationCalendar(
@@ -68,7 +74,6 @@ Future<void> createQuotesReminderNotification(
       repeats: true,
     ),
   );
-  print(id);
 }
 
 Future<void> cancelScheduledNotifications() async {

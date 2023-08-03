@@ -24,12 +24,11 @@ class TimeOfDayConverter implements JsonConverter<TimeOfDay, String> {
 
 @freezed
 class Alarms with _$Alarms {
-  @JsonSerializable(explicitToJson: true)
   const factory Alarms({
-    required int id,
+    int? id,
     required int dayOfTheWeek,
     @TimeOfDayConverter() required TimeOfDay timeOfDay,
-    required bool isActive,
+    bool? isActive,
   }) = _Alarms;
 
   factory Alarms.fromJson(Map<String, dynamic> json) => _$AlarmsFromJson(json);

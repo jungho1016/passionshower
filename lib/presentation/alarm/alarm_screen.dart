@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:passionshower/presentation/alarm/alarm_view_model.dart';
 import 'package:provider/provider.dart';
@@ -37,31 +38,51 @@ class AlarmScreen extends StatelessWidget {
                 final alarm = viewModel.alarms[index];
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                  child: Card(
-                    child: ListTile(
-                      title: Text(
-                        alarm.timeOfDay.format(context),
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 24),
+                  child: Dismissible(
+                    key: UniqueKey(),
+                    background: Container(
+                      color: Colors
+                          .red, // Set the background color when swiping to delete
+                      alignment: Alignment.centerRight,
+                      padding: const EdgeInsets.only(right: 16),
+                      child: const Icon(
+                        Icons.delete,
+                        color: Colors.white,
                       ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            '${viewModel.getDayOfWeekString(alarm.dayOfTheWeek)}요일',
-                            style: const TextStyle(color: Colors.blueAccent),
-                          ),
-                        ],
-                      ),
-                      trailing: Switch(
-                        activeColor: Colors.black,
-                        value: alarm.isActive,
-                        onChanged: (newValue) {
-                          viewModel.onToggleAlarmStatus(index, newValue);
-                        },
+                    ),
+                    direction: DismissDirection.endToStart,
+                    onDismissed: (_) {
+                      int alarmId = alarm.id!;
+                      AwesomeNotifications().cancel(alarmId);
+                      viewModel.deleteAlarm(alarmId);
+                    },
+                    child: Card(
+                      elevation: 2.0,
+                      child: ListTile(
+                        title: Text(
+                          alarm.timeOfDay.format(context),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 24),
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              '${viewModel.getDayOfWeekString(alarm.dayOfTheWeek)}요일',
+                              style: const TextStyle(color: Colors.blueAccent),
+                            ),
+                          ],
+                        ),
+                        trailing: Switch(
+                          activeColor: Colors.black,
+                          value: alarm.isActive!,
+                          onChanged: (newValue) {
+                            viewModel.onToggleAlarmStatus(index, newValue);
+                          },
+                        ),
                       ),
                     ),
                   ),

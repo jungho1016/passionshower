@@ -19,4 +19,9 @@ class AlarmsRepositoryImpl implements AlarmsRepository {
   Future<void> saveAlarms() async {
     await _dataSource.saveAlarms();
   }
+
+  @override
+  Future<void> deleteAlarm(int alarms) async {
+    await _dataSource.deleteAlarm(alarms);
+  }
 }

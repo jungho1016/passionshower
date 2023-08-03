@@ -1,5 +1,6 @@
 // 알람 ID를 생성하는 유틸리티 함수입니다.
 import 'package:flutter/material.dart';
+import 'package:passionshower/domain/model/alarms/alarms.dart';
 
 int _uniqueId = 0;
 
@@ -8,38 +9,7 @@ int createUniqueId() {
   return _uniqueId % 100000;
 }
 
-class NotificationWeekAndTime {
-  final int? id; // 알람 ID 추가, nullable로 변경
-  final int dayOfTheWeek;
-  final TimeOfDay timeOfDay;
-  bool isActive;
-
-  NotificationWeekAndTime({
-    // 알람 ID를 생성자에서 받도록 추가
-    this.id, // nullable로 변경
-    required this.dayOfTheWeek,
-    required this.timeOfDay,
-    this.isActive = true,
-  });
-
-  // 업데이트된 속성을 사용하여 새로운 인스턴스를 생성하는 copyWith 메서드를 정의합니다.
-  NotificationWeekAndTime copyWith({
-    int? id,
-    int? dayOfTheWeek,
-    TimeOfDay? timeOfDay,
-    bool? isActive,
-  }) {
-    return NotificationWeekAndTime(
-      id: id ?? this.id,
-      dayOfTheWeek: dayOfTheWeek ?? this.dayOfTheWeek,
-      timeOfDay: timeOfDay ?? this.timeOfDay,
-      isActive: isActive ?? this.isActive,
-    );
-  }
-}
-
-// 알람의 요일과 시간을 선택하는 다이얼로그를 표시하고 선택한 값을 반환하는 유틸리티 함수입니다.
-Future<NotificationWeekAndTime?> pickSchedule(
+Future<Alarms?> pickSchedule(
   BuildContext context,
   int? id, // 추가된 nullable id 매개변수
 ) async {
@@ -54,7 +24,7 @@ Future<NotificationWeekAndTime?> pickSchedule(
   ];
   TimeOfDay? timeOfDay;
   DateTime now = DateTime.now();
-  int? selectedDay;
+  int? selectedDay; // null로 초기화
 
   await showDialog(
     context: context,
@@ -88,13 +58,13 @@ Future<NotificationWeekAndTime?> pickSchedule(
       context: context,
       initialTime: TimeOfDay.fromDateTime(
         now.add(
-          Duration(minutes: 1),
+          const Duration(minutes: 1),
         ),
       ),
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData(
-            colorScheme: ColorScheme.light(
+            colorScheme: const ColorScheme.light(
               primary: Colors.black,
             ),
           ),
@@ -104,10 +74,12 @@ Future<NotificationWeekAndTime?> pickSchedule(
     );
 
     if (timeOfDay != null) {
-      return NotificationWeekAndTime(
+      // "매일"을 나타내는 값이 아닌 경우에만 Alarms 객체를 생성합니다.
+      return Alarms(
         id: id,
         dayOfTheWeek: selectedDay!,
         timeOfDay: timeOfDay,
+        isActive: true,
       );
     }
   }

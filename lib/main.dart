@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:passionshower/data/data_source/alarm_data_source.dart';
 import 'package:passionshower/data/data_source/like_data_source.dart';
 import 'package:passionshower/data/repository/alarm_repository_impl.dart';
@@ -10,7 +11,6 @@ import 'package:passionshower/presentation/main/main_view_model.dart';
 import 'package:passionshower/presentation/myhome/myhome_screen.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:provider/provider.dart';
-
 import 'presentation/like/like_view_model.dart';
 
 void main() {
@@ -63,15 +63,24 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
+      localizationsDelegates: [
+        // ... app-specific localization delegate(s) here
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: <Locale>[
+        Locale('ko', 'KR'), // 한국어
+        Locale('en', 'US'), // English
+      ],
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(),
-      home: const MyHomeScreen(),
+      home: MyHomeScreen(),
     );
   }
 }

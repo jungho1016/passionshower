@@ -23,4 +23,9 @@ class AlarmDataSource {
       _alarms = [];
     }
   }
+
+  Future<void> deleteAlarm(int alarmId) async {
+    _alarms.removeWhere((alarm) => alarm.id == alarmId);
+    await saveAlarms();
+  }
 }
