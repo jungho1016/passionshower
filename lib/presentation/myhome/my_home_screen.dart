@@ -85,7 +85,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
       appBar: AppBar(
         title: Text(
           '열정 샤워',
-          style: GoogleFonts.nanumPenScript(
+          style: GoogleFonts.nanumBrushScript(
             textStyle: const TextStyle(
                 fontWeight: FontWeight.bold, fontSize: 36, color: Colors.white),
           ),

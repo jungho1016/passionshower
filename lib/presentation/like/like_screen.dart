@@ -53,7 +53,7 @@ class _LikeScreenState extends State<LikeScreen> {
                   Text(
                     quote.message,
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.nanumPenScript(
+                    style: GoogleFonts.nanumBrushScript(
                       textStyle: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 24,

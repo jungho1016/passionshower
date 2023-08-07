@@ -37,7 +37,7 @@ class _MainScreenState extends State<MainScreen> {
                         const SizedBox(height: 8),
                         Text(
                           quote.message,
-                          style: GoogleFonts.nanumPenScript(
+                          style: GoogleFonts.nanumBrushScript(
                             textStyle: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 36,
