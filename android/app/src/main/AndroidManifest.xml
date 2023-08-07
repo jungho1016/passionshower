@@ -9,7 +9,7 @@
 
 
     <application
-        android:label="passionshower"
+        android:label="열정 샤워"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

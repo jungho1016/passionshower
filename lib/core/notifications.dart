@@ -54,12 +54,12 @@ Future<void> createQuotesReminderNotification(
         body: body,
         notificationLayout: NotificationLayout.Default,
         locked: false),
-    actionButtons: [
-      NotificationActionButton(
-        key: 'open',
-        label: '열기',
-      ),
-    ],
+    // actionButtons: [
+    //   NotificationActionButton(
+    //     key: 'open',
+    //     label: '열기',
+    //   ),
+    // ],
     //   NotificationActionButton(
     //     key: 'delete',
     //     label: '닫기',

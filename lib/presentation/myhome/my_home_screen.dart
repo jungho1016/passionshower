@@ -1,7 +1,6 @@
-import 'dart:async';
-
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:passionshower/presentation/alarm/alarm_screen.dart';
 import 'package:passionshower/presentation/like/like_screen.dart';
 import 'package:passionshower/presentation/main/main_screen.dart';
@@ -20,7 +19,6 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
     const LikeScreen(),
     const AlarmScreen(),
   ];
-  StreamSubscription? _streamSubscription;
 
   @override
   void initState() {
@@ -65,52 +63,44 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
     );
   }
 
-//     AwesomeNotifications().actionStream.listen((action) {
-//       if (action.buttonKeyPressed == "open") {
-//         Navigator.push(
-//           context,
-//           MaterialPageRoute(builder: (context) => const MyHomeScreen()),
-//         );
-//       }
-//     });
-//   }
-//
-// //
-//   final viewModel = context.read<MyHomeViewModel>();
-//   _streamSubscription = AwesomeNotifications().actionStream.listen((action) {
-//   if (action.buttonKeyPressed == "open") {
-//   Navigator.push(
-//   context,
-//   MaterialPageRoute(builder: (context) => const MyHomeScreen()),
-//   );
-//   }
-//   });
-// }
-
-//   _streamSubscription = viewModel.eventStream.listen((event) {
-//   event.when(
-//   saveNote: () {
-//   Navigator.pop(context, true);
-//   },
-//   showSnackBar: (String message) {
-//   final snackBar = SnackBar(content: Text(message));
-//   ScaffoldMessenger.of(context).showSnackBar(snackBar);
-//   },
-//   );
-//   });
-// });
-// }
+  void _showLicensePage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Theme(
+          data: ThemeData.dark(),
+          child: const LicensePage(
+            applicationName: '열정 샤워 앱',
+            applicationVersion: '1.0.0',
+            applicationLegalese: '© 2023 Creted By Confu',
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           '열정 샤워',
-          style: TextStyle(color: Colors.white),
+          style: GoogleFonts.nanumPenScript(
+            textStyle: const TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 36, color: Colors.white),
+          ),
         ),
         centerTitle: true,
         backgroundColor: Colors.black,
+        actions: [
+          IconButton(
+            onPressed: () => _showLicensePage(context),
+            icon: const Icon(
+              Icons.description,
+              color: Colors.grey,
+            ),
+          ),
+        ],
       ),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -139,11 +129,5 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
         unselectedItemColor: Colors.grey,
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _streamSubscription?.cancel();
-    super.dispose();
   }
 }

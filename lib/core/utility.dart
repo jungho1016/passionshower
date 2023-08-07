@@ -31,8 +31,10 @@ Future<Alarms?> pickSchedule(
     builder: (context) {
       return AlertDialog(
         content: Wrap(
+          direction: Axis.horizontal,
           alignment: WrapAlignment.center,
-          spacing: 3,
+          spacing: 4,
+          runSpacing: 0,
           children: [
             for (int index = 0; index < weekdays.length; index++)
               ElevatedButton(
@@ -42,7 +44,14 @@ Future<Alarms?> pickSchedule(
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(
-                    Colors.black,
+                    // 토요일(토요일은 6번째 인덱스)
+                    index == 5
+                        ? Colors.blue
+                        :
+                        // 일요일(일요일은 7번째 인덱스)
+                        index == 6
+                            ? Colors.red
+                            : Colors.black,
                   ),
                 ),
                 child: Text(weekdays[index]),

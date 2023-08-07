@@ -39,12 +39,9 @@ dependencies:
   freezed_annotation: ^2.2.0
   json_annotation: ^4.8.1
   provider: ^6.0.5
-  url_launcher: ^6.1.11
-  font_awesome_flutter: ^10.5.0
   intl: ^0.18.0
   shared_preferences: ^2.2.0
   awesome_notifications: ^0.6.19
-  http: ^1.1.0
   google_fonts: ^5.1.0
   injectable: ^2.1.2
   get_it: ^7.6.0

@@ -1,5 +1,6 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:passionshower/presentation/alarm/alarm_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -29,8 +30,16 @@ class AlarmScreen extends StatelessWidget {
         ],
       ),
       body: (viewModel.alarms.isEmpty)
-          ? const Center(
-              child: Text('알람을 추가해주세요'),
+          ? Center(
+              child: Text(
+                '알람을 추가해주세요',
+                style: GoogleFonts.nanumPenScript(
+                  textStyle: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 36,
+                  ),
+                ),
+              ),
             )
           : ListView.builder(
               itemCount: viewModel.alarms.length,
