@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:passionshower/core/di/di_setup.dart';
+import 'package:passionshower/di/di_setup.dart';
 import 'package:passionshower/presentation/alarm/alarm_view_model.dart';
 import 'package:passionshower/presentation/main/main_view_model.dart';
 import 'package:passionshower/presentation/myhome/my_home_screen.dart';
